@@ -9,14 +9,14 @@ import com.weathertoday.ui.theme.LocalSimpleTypography
 
 
 @Composable
-fun TextLSemiBold(
+fun TextXLSemiBold(
+    modifier: Modifier = Modifier,
     text: String,
     color: Color = AppTheme.colors.Gray900,
-    modifier: Modifier = Modifier
 ) {
     Text(
         text = text,
-        style = LocalSimpleTypography.current.TextLSemiBold,
+        style = LocalSimpleTypography.current.TextXLSemiBold,
         modifier = modifier,
         color = color
     )
