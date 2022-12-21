@@ -5,18 +5,20 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 
 private val DarkColorPalette = darkColors(
-    primary = Blue500,
-    primaryVariant = Blue600,
-    secondary = Green400
+    primary = Colors().Blue500,
+    primaryVariant = Colors().Blue600,
+    secondary = Colors().Green400
 )
 
 private val LightColorPalette = lightColors(
-    primary = Blue500,
-    primaryVariant = Blue600,
-    secondary = Green400,
-    background = White,
+    primary = Colors().Blue500,
+    primaryVariant = Colors().Blue600,
+    secondary = Colors().Green400,
+    background = Colors().White,
 
     /* Other default colors to override
     surface = Color.White,
@@ -27,6 +29,19 @@ private val LightColorPalette = lightColors(
     */
 )
 
+object AppTheme {
+
+    val typography
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalSimpleTypography.current
+
+    val colors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalSimpleColors.current
+}
+
 @Composable
 fun WeatherTodayTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
@@ -34,11 +49,13 @@ fun WeatherTodayTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Comp
     } else {
         LightColorPalette
     }
-
+    CompositionLocalProvider(
+        LocalSimpleTypography provides AppTypography(),
+    ) {
     MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+            colors = colors,
+            shapes = Shapes,
+            content = content
+        )
+    }
 }
