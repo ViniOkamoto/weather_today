@@ -47,7 +47,6 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                     ) {
-                        Text(text = "fckn Weather Today", modifier = Modifier.align(Alignment.CenterHorizontally))
                         viewModel.state.weatherInfo?.currentWeatherData?.let {
                             WeatherCard(data = it)
                         }
