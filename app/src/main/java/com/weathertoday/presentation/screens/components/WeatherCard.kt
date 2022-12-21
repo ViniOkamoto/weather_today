@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.weathertoday.domain.weather.WeatherData
 import com.weathertoday.domain.weather.WeatherType
+import com.weathertoday.shared.presentation.components.extensions.shadow
 import com.weathertoday.shared.presentation.components.typography.TextSRegular
 import com.weathertoday.shared.presentation.components.typography.TitleLBold
 import com.weathertoday.ui.theme.*
@@ -31,14 +31,13 @@ fun WeatherCard(
     data: WeatherData,
     modifier: Modifier = Modifier
 ) {
-    val boxSize = with(LocalDensity.current) { 360.dp.toPx() }
     val brush = Brush.linearGradient(
         colors = listOf(
-            Color(0xFF54A8FF),
+            Color(0xFF007DFF),
             Color(0xFF67E1D2)
         ),
-        start = Offset(0F, boxSize),
-        end = Offset(boxSize, 0F)
+        start = Offset(0F, Float.POSITIVE_INFINITY),
+        end = Offset(Float.POSITIVE_INFINITY, 0F)
     )
 
     Box(
@@ -50,8 +49,19 @@ fun WeatherCard(
             shape = RoundedCornerShape(32.dp),
             modifier = modifier
                 .fillMaxWidth()
+                .shadow(
+                    AppTheme.colors.Gray200,
+                    borderRadius = 32.dp,
+                    offsetX = 4.dp,
+                    offsetY = 24.dp,
+                    spread = 16.dp,
+                    blurRadius = 24.dp
+                )
                 .height(160.dp)
-        ) {
+                .padding(16.dp),
+            elevation = 0.dp,
+
+            ) {
             Box(
                 //add gradient
                 modifier = Modifier
@@ -80,7 +90,9 @@ fun WeatherCard(
         }
         Box(
             contentAlignment = Alignment.TopEnd,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(x = (-24).dp),
         ) {
             Text(
                 fontFamily = fonts,
@@ -96,7 +108,7 @@ fun WeatherCard(
                 .height(200.dp)
                 .padding(16.dp)
                 .offset(y = (-100).dp, x = (-24).dp),
-            contentAlignment = Alignment.TopStart
+            contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(id = data.weatherType.iconRes),

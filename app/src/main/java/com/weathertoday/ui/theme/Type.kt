@@ -1,6 +1,5 @@
 package com.weathertoday.ui.theme
 
-import androidx.compose.material.Typography
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -17,23 +16,35 @@ val fonts = FontFamily(
 )
 
 data class AppTypography(
+    val FontFamily: FontFamily = FontFamily(
+        Font(R.font.inter_bold, weight = FontWeight.Bold),
+        Font(R.font.inter_semibold, weight = FontWeight.SemiBold),
+        Font(R.font.inter_medium, weight = FontWeight.Medium),
+        Font(R.font.inter_regular, weight = FontWeight.Normal),
+    ),
     val TitleL: TextStyle = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.Bold,
         lineHeight = 28.8.sp,
         fontSize = 24.sp
     ),
-    val TextLMedium: TextStyle = TextStyle(
+    val TextXLMedium: TextStyle = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.Medium,
         lineHeight = 24.sp,
         fontSize = 20.sp
     ),
-    val TextLSemiBold : TextStyle = TextStyle(
+    val TextXLSemiBold : TextStyle = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.SemiBold,
         lineHeight = 24.sp,
         fontSize = 20.sp
+    ),
+    val TextLMedium : TextStyle = TextStyle(
+        fontFamily = fonts,
+        fontWeight = FontWeight.Medium,
+        lineHeight = 21.6.sp,
+        fontSize = 18.sp
     ),
     val TextMMedium: TextStyle = TextStyle(
         fontFamily = fonts,
