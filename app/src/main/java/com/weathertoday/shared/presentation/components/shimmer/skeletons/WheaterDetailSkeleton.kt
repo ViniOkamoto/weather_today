@@ -21,7 +21,7 @@ private fun Skeleton(brush: Brush) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(horizontal= 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Spacer(

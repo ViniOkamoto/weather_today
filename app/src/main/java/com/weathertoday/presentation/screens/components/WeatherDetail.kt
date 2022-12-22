@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.weathertoday.ui.theme.AppTheme
 import com.weathertoday.R
-import com.weathertoday.shared.presentation.components.extensions.shadow
 import com.weathertoday.shared.presentation.components.typography.*
 
 @ExperimentalMaterialApi
@@ -21,14 +20,7 @@ import com.weathertoday.shared.presentation.components.typography.*
 fun WeatherDetail(modifier: Modifier = Modifier, onRefresh: () -> Unit) {
     Card(
         modifier = modifier
-            .fillMaxWidth().shadow(
-                AppTheme.colors.Gray200,
-                borderRadius = 32.dp,
-                offsetX = 4.dp,
-                offsetY = 24.dp,
-                spread = 16.dp,
-                blurRadius = 24.dp
-            )   .padding(16.dp),
+            .fillMaxWidth().padding(horizontal = 16.dp),
         elevation = 0.dp,
         shape = RoundedCornerShape(32.dp),
         backgroundColor = AppTheme.colors.White

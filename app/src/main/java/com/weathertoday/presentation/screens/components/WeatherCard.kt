@@ -47,23 +47,19 @@ fun WeatherCard(
     ) {
         Card(
             shape = RoundedCornerShape(32.dp),
-            modifier = modifier
-                .fillMaxWidth()
-                .shadow(
+            modifier = Modifier
+                .height(200.dp)
+                .padding(horizontal = 16.dp).shadow(
                     AppTheme.colors.Gray200,
                     borderRadius = 32.dp,
-                    offsetX = 4.dp,
-                    offsetY = 24.dp,
-                    spread = 16.dp,
-                    blurRadius = 24.dp
-                )
-                .height(160.dp)
-                .padding(16.dp),
+                    offsetX = 0.dp,
+                    offsetY = 30.dp,
+                    blurRadius = 80.dp,
+                    spread = 0.dp
+                ),
             elevation = 0.dp,
-
             ) {
             Box(
-                //add gradient
                 modifier = Modifier
                     .fillMaxSize()
                     .background(brush = brush)
@@ -107,7 +103,7 @@ fun WeatherCard(
                 .width(200.dp)
                 .height(200.dp)
                 .padding(16.dp)
-                .offset(y = (-100).dp, x = (-24).dp),
+                .offset(y = (-70).dp, x = (-24).dp),
             contentAlignment = Alignment.Center
         ) {
             Image(

@@ -17,7 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.weathertoday.presentation.screens.components.WeatherCard
+import com.weathertoday.presentation.screens.components.WeatherDaysList
 import com.weathertoday.presentation.screens.components.WeatherDetail
 import com.weathertoday.presentation.viewmodels.WeatherViewModel
 import com.weathertoday.shared.presentation.components.shimmer.skeletons.WeatherCardSkeleton
@@ -75,13 +77,17 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             ) {
                 if (viewModel.state.isLoading && viewModel.state.weatherInfo == null) {
                     WeatherCardSkeleton()
+                    Spacer(modifier = Modifier.height(24.dp))
                     WeatherDetailSkeleton()
+                    Spacer(modifier = Modifier.height(24.dp))
                 }
-                viewModel.state.weatherInfo?.currentWeatherData?.let {
-                    WeatherCard(data = it)
+                viewModel.state.weatherInfo?.let {
+                    WeatherCard(data = it.currentWeatherData)
+                    Spacer(modifier = Modifier.height(24.dp))
                     WeatherDetail(onRefresh = { viewModel.loadWeatherInfo() })
+                    Spacer(modifier = Modifier.height(24.dp))
+                    WeatherDaysList(weatherDataPerDay = it.weatherDataPerDay)
                 }
-
             }
             viewModel.state.error?.let { error ->
                 Text(
