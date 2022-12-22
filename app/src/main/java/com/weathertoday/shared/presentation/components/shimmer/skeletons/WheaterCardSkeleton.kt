@@ -29,7 +29,7 @@ private fun Skeleton(brush: Brush) {
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(32.dp))
                 .background(brush)
-                .height(160.dp)
+                .height(200.dp)
 
         )
     }

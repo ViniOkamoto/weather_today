@@ -1,10 +1,14 @@
+@file:OptIn(ExperimentalMaterialApi::class)
+
 package com.weathertoday.presentation.screens.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,21 +33,29 @@ import com.weathertoday.shared.presentation.components.extensions.shadow
 import com.weathertoday.ui.theme.AppTheme
 
 @Composable
-fun WeatherDaysList(modifier: Modifier = Modifier, weatherDataPerDay: Map<Int, List<WeatherData>>) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp),
-    ) {
-        LazyRow(
-            content = {
-                items(weatherDataPerDay.size) { index ->
-                    WeatherDayCard(weatherDataPerDay[index]!!.first(), selected = index == 3)
-                }
-            },
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        )
-    }
+fun WeatherDaysList(
+    modifier: Modifier = Modifier,
+    weatherDataPerDay: Map<Int, List<WeatherData>>,
+    onDaySelected: (WeatherData) -> Unit,
+    selectedDay: WeatherData,
+) {
+    LazyRow(
+        modifier =modifier
+            .fillMaxWidth(),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        content = {
+
+            items(weatherDataPerDay.size) { index ->
+                WeatherDayCard(
+                    weatherDataPerDay[index]!!.first(),
+                    selected = selectedDay.time.dayOfYear ==
+                            weatherDataPerDay[index]!!.first().time.dayOfYear,
+                    onDaySelected = onDaySelected
+                )
+            }
+        },
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+    )
 }
 
 @Preview(showBackground = true)
@@ -61,27 +74,34 @@ private fun WeatherDayCardPreview() {
 }
 
 @Composable
-private fun WeatherDayCard(weatherData: WeatherData, selected: Boolean = false) {
+private fun WeatherDayCard(
+    weatherData: WeatherData,
+    selected: Boolean = false,
+    onDaySelected: (WeatherData) -> Unit = {}
+) {
+    weatherData.weatherType.iconRes
 
     Card(
-        modifier = Modifier.conditional(
-            selected, {
-                //TODO: Check how to pass Apptheme through this modifier.
-                shadow(
-                    Color(0xFFCBD6E7),
-                    borderRadius = 100.dp,
-                    offsetX = 0.dp,
-                    offsetY = 0.dp,
-                    blurRadius = 80.dp,
-                    spread = 16.dp
-                )
-            }, {
-                this
-            }
-        ),
+        modifier = Modifier
+            .conditional(
+                selected, {
+                    //TODO: Check how to pass Apptheme through this modifier.
+                    shadow(
+                        Color(0xFFCBD6E7),
+                        borderRadius = 100.dp,
+                        offsetX = 0.dp,
+                        offsetY = 0.dp,
+                        blurRadius = 80.dp,
+                        spread = 16.dp
+                    )
+                }, {
+                    this
+                }
+            ),
         backgroundColor = Color.Transparent,
-        shape = RoundedCornerShape (100.dp),
+        shape = RoundedCornerShape(100.dp),
         elevation = 0.dp,
+        onClick = { onDaySelected(weatherData) }
     ) {
         Box(
             modifier = Modifier
@@ -116,8 +136,8 @@ private fun WeatherDayCard(weatherData: WeatherData, selected: Boolean = false) 
                     color = if (selected) AppTheme.colors.Blue100 else AppTheme.colors.Gray400
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = weatherData.weatherType.iconRes),
+                Image(
+                    painter = painterResource(id = weatherData.weatherType.iconRes),
                     contentDescription = null,
                     modifier = Modifier.size(40.dp)
                 )

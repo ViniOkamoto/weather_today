@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -23,7 +24,9 @@ import com.weathertoday.presentation.screens.components.WeatherDaysList
 import com.weathertoday.presentation.screens.components.WeatherDetail
 import com.weathertoday.presentation.viewmodels.WeatherViewModel
 import com.weathertoday.shared.presentation.components.shimmer.skeletons.WeatherCardSkeleton
+import com.weathertoday.shared.presentation.components.shimmer.skeletons.WeatherDaysListSkeleton
 import com.weathertoday.shared.presentation.components.shimmer.skeletons.WeatherDetailSkeleton
+import com.weathertoday.ui.theme.AppTheme
 import com.weathertoday.ui.theme.WeatherTodayTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -68,6 +71,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .background(AppTheme.colors.White)
         ) {
 
             Column(
@@ -75,18 +79,26 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
                     .fillMaxSize()
                     .verticalScroll(scrollState),
             ) {
-                if (viewModel.state.isLoading && viewModel.state.weatherInfo == null) {
+                if (viewModel.state.isLoading) {
+                    Spacer(modifier = Modifier.height(40.dp))
                     WeatherCardSkeleton()
                     Spacer(modifier = Modifier.height(24.dp))
                     WeatherDetailSkeleton()
                     Spacer(modifier = Modifier.height(24.dp))
+                    WeatherDaysListSkeleton()
                 }
+                if(!viewModel.state.isLoading && viewModel.state.weatherInfo != null){
                 viewModel.state.weatherInfo?.let {
+                    Spacer(modifier = Modifier.height(40.dp))
                     WeatherCard(data = it.currentWeatherData)
                     Spacer(modifier = Modifier.height(24.dp))
                     WeatherDetail(onRefresh = { viewModel.loadWeatherInfo() })
                     Spacer(modifier = Modifier.height(24.dp))
-                    WeatherDaysList(weatherDataPerDay = it.weatherDataPerDay)
+                    WeatherDaysList(weatherDataPerDay = it.weatherDataPerDay,
+                        onDaySelected = { weather -> viewModel.selectDay(weather) },
+                        selectedDay = viewModel.state.showingWeather!!
+                    )
+                }
                 }
             }
             viewModel.state.error?.let { error ->

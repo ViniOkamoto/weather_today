@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.weathertoday.core.services.location.LocationTracker
 import com.weathertoday.core.util.Resource
 import com.weathertoday.domain.repository.WeatherRepository
+import com.weathertoday.domain.weather.WeatherData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,7 +28,8 @@ class WeatherViewModel @Inject constructor(
                     repository.getWeatherData(location.latitude, location.longitude)) {
                     is Resource.Success -> state = state.copy(
                         isLoading = false,
-                        weatherInfo = result.data
+                        weatherInfo = result.data,
+                        showingWeather = result.data?.weatherDataPerDay?.values?.first()?.first()
                     )
                     is Resource.Error -> state = state.copy(
                         weatherInfo = null,
@@ -42,5 +44,8 @@ class WeatherViewModel @Inject constructor(
                 )
             }
         }
+    }
+    fun selectDay(weatherData: WeatherData) {
+        state = state.copy(showingWeather = weatherData)
     }
 }
