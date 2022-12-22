@@ -24,10 +24,10 @@ fun Modifier.shadow(
             val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
             val spreadPixel = spread.toPx()
-            val leftPixel = (0f - spreadPixel) + offsetX.toPx()
-            val topPixel = (0f - spreadPixel) + offsetY.toPx()
-            val rightPixel = (this.size.width + spreadPixel)
-            val bottomPixel = (this.size.height + spreadPixel)
+            val leftPixel = offsetX.toPx()
+            val topPixel = offsetY.toPx()
+            val rightPixel = (this.size.width + spreadPixel + leftPixel)
+            val bottomPixel = (this.size.height + spreadPixel + topPixel)
 
             if (blurRadius != 0.dp) {
                 frameworkPaint.maskFilter =
