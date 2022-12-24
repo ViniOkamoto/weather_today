@@ -8,9 +8,9 @@ import com.weathertoday.ui.theme.AppTheme
 @Composable
 fun AnimatedShimmer(child: @Composable (brush: Brush) -> Unit) {
     val shimmerColors = listOf(
-        AppTheme.colors.Gray200,
-        AppTheme.colors.Gray100,
-        AppTheme.colors.Gray200,
+        AppTheme.colors.Blue800,
+        AppTheme.colors.Blue900,
+        AppTheme.colors.Blue800,
     )
 
     val transition = rememberInfiniteTransition()

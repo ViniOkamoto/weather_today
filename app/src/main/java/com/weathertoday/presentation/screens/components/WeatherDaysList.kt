@@ -29,7 +29,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import com.weathertoday.R
 import com.weathertoday.shared.presentation.components.extensions.conditional
-import com.weathertoday.shared.presentation.components.extensions.shadow
 import com.weathertoday.ui.theme.AppTheme
 
 @Composable
@@ -43,6 +42,7 @@ fun WeatherDaysList(
         modifier =modifier
             .fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
         content = {
 
             items(weatherDataPerDay.size) { index ->
@@ -54,7 +54,7 @@ fun WeatherDaysList(
                 )
             }
         },
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+
     )
 }
 
@@ -82,22 +82,6 @@ private fun WeatherDayCard(
     weatherData.weatherType.iconRes
 
     Card(
-        modifier = Modifier
-            .conditional(
-                selected, {
-                    //TODO: Check how to pass Apptheme through this modifier.
-                    shadow(
-                        Color(0xFFCBD6E7),
-                        borderRadius = 100.dp,
-                        offsetX = 0.dp,
-                        offsetY = 0.dp,
-                        blurRadius = 80.dp,
-                        spread = 16.dp
-                    )
-                }, {
-                    this
-                }
-            ),
         backgroundColor = Color.Transparent,
         shape = RoundedCornerShape(100.dp),
         elevation = 0.dp,
@@ -129,7 +113,7 @@ private fun WeatherDayCard(
             ) {
                 TextLMedium(
                     text = weatherData.time.format(DateTimeFormatter.ofPattern("EEE")),
-                    color = if (selected) AppTheme.colors.White else AppTheme.colors.Gray800
+                    color = if (selected) AppTheme.colors.White else AppTheme.colors.White
                 )
                 TextMMedium(
                     text = weatherData.time.format(DateTimeFormatter.ofPattern("dd/MM")),
@@ -143,7 +127,7 @@ private fun WeatherDayCard(
                 )
                 TitleLBold(
                     text = "${weatherData.temperatureCelsius.toInt()}°",
-                    color = if (selected) AppTheme.colors.White else AppTheme.colors.Gray900
+                    color = if (selected) AppTheme.colors.White else AppTheme.colors.White
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Icon(

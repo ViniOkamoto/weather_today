@@ -10,9 +10,9 @@ import com.weathertoday.ui.theme.LocalSimpleTypography
 
 @Composable
 fun TextLMedium(
+    modifier: Modifier = Modifier,
     text: String,
-    color: Color = AppTheme.colors.Gray900,
-    modifier: Modifier = Modifier
+    color: Color = AppTheme.colors.White,
 ) {
     Text(
         text = text,

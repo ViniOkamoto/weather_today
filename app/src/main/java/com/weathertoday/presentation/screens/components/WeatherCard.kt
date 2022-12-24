@@ -1,7 +1,6 @@
 package com.weathertoday.presentation.screens.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -9,8 +8,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.weathertoday.domain.weather.WeatherData
 import com.weathertoday.domain.weather.WeatherType
-import com.weathertoday.shared.presentation.components.extensions.shadow
 import com.weathertoday.shared.presentation.components.typography.TextSRegular
 import com.weathertoday.shared.presentation.components.typography.TitleLBold
 import com.weathertoday.ui.theme.*
@@ -31,14 +27,6 @@ fun WeatherCard(
     data: WeatherData,
     modifier: Modifier = Modifier
 ) {
-    val brush = Brush.linearGradient(
-        colors = listOf(
-            Color(0xFF007DFF),
-            Color(0xFF67E1D2)
-        ),
-        start = Offset(0F, Float.POSITIVE_INFINITY),
-        end = Offset(Float.POSITIVE_INFINITY, 0F)
-    )
 
     Box(
         modifier = modifier
@@ -47,22 +35,15 @@ fun WeatherCard(
     ) {
         Card(
             shape = RoundedCornerShape(32.dp),
+            backgroundColor = Color.Transparent,
             modifier = Modifier
                 .height(200.dp)
-                .padding(horizontal = 16.dp).shadow(
-                    AppTheme.colors.Gray200,
-                    borderRadius = 32.dp,
-                    offsetX = 0.dp,
-                    offsetY = 30.dp,
-                    blurRadius = 80.dp,
-                    spread = 0.dp
-                ),
+                .padding(horizontal = 16.dp),
             elevation = 0.dp,
-            ) {
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(brush = brush)
                     .padding(16.dp),
             ) {
                 Column(
@@ -98,19 +79,14 @@ fun WeatherCard(
                 fontWeight = FontWeight.Bold
             )
         }
-        Box(
+        Image(
             modifier = Modifier
-                .width(200.dp)
-                .height(200.dp)
-                .padding(16.dp)
-                .offset(y = (-70).dp, x = (-24).dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                painter = painterResource(id = data.weatherType.iconRes),
-                contentDescription = "Weather icon",
-            )
-        }
+                .size(160.dp)
+                .offset(y = (-70).dp),
+            painter = painterResource(id = data.weatherType.iconRes),
+
+            contentDescription = "Weather icon",
+        )
     }
 }
 

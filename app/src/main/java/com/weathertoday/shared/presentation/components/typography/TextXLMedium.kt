@@ -12,7 +12,7 @@ import com.weathertoday.ui.theme.LocalSimpleTypography
 fun TextXLMedium(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = AppTheme.colors.Gray900,
+    color: Color = AppTheme.colors.White,
 ) {
     Text(
         text = text,

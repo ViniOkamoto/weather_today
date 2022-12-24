@@ -33,9 +33,9 @@ fun DetailInfo(icon: ImageVector, title: String, value: String, complementValue:
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            TextXLSemiBold(text = value, color = AppTheme.colors.Gray800)
+            TextXLSemiBold(text = value, color = AppTheme.colors.White)
             complementValue?.let { complement ->
-                TextMMedium(text = complement, color = AppTheme.colors.Gray800)
+                TextMMedium(text = complement, color = AppTheme.colors.White)
             }
         }
     }

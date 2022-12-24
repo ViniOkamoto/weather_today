@@ -5,11 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.weathertoday.ui.theme.AppTheme
-import com.weathertoday.ui.theme.Colors
 import com.weathertoday.ui.theme.LocalSimpleTypography
 
 @Composable
-fun TitleLBold(text:String, color: Color = AppTheme.colors.Gray900, modifier: Modifier = Modifier) {
+fun TitleLBold(modifier: Modifier = Modifier, text:String, color: Color = AppTheme.colors.White, ) {
     Text(
         text = text,
         style = LocalSimpleTypography.current.TitleL,

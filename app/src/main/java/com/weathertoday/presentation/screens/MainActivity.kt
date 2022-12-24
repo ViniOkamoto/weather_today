@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.weathertoday.presentation.screens.components.WeatherCard
 import com.weathertoday.presentation.screens.components.WeatherDaysList
 import com.weathertoday.presentation.screens.components.WeatherDetail
+import com.weathertoday.presentation.screens.components.WeatherForecast
 import com.weathertoday.presentation.viewmodels.WeatherViewModel
 import com.weathertoday.shared.presentation.components.shimmer.skeletons.WeatherCardSkeleton
 import com.weathertoday.shared.presentation.components.shimmer.skeletons.WeatherDaysListSkeleton
@@ -71,7 +72,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(AppTheme.colors.White)
+                .background(AppTheme.colors.Blue900)
         ) {
 
             Column(
@@ -89,8 +90,10 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
                 }
                 if(!viewModel.state.isLoading && viewModel.state.weatherInfo != null){
                 viewModel.state.weatherInfo?.let {
-                    Spacer(modifier = Modifier.height(40.dp))
+                    Spacer(modifier = Modifier.height(62.dp))
                     WeatherCard(data = it.currentWeatherData)
+                    Spacer(modifier = Modifier.height(24.dp))
+                    WeatherForecast(weatherDataList = it.weatherForecast)
                     Spacer(modifier = Modifier.height(24.dp))
                     WeatherDetail(onRefresh = { viewModel.loadWeatherInfo() })
                     Spacer(modifier = Modifier.height(24.dp))

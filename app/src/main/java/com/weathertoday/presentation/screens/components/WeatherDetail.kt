@@ -1,7 +1,6 @@
 package com.weathertoday.presentation.screens.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -18,15 +17,11 @@ import com.weathertoday.shared.presentation.components.typography.*
 @ExperimentalMaterialApi
 @Composable
 fun WeatherDetail(modifier: Modifier = Modifier, onRefresh: () -> Unit) {
-    Card(
+    Box(
         modifier = modifier
-            .fillMaxWidth().padding(horizontal = 16.dp),
-        elevation = 0.dp,
-        shape = RoundedCornerShape(32.dp),
-        backgroundColor = AppTheme.colors.White
+            .fillMaxWidth().padding(horizontal = 16.dp)
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical= 24.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -36,7 +31,7 @@ fun WeatherDetail(modifier: Modifier = Modifier, onRefresh: () -> Unit) {
                 modifier = Modifier
                     .fillMaxWidth().padding(horizontal = 8.dp)
             ) {
-                TitleLBold(text = "Today", color = AppTheme.colors.Gray800)
+                TitleLBold(text = "Today", color = AppTheme.colors.White)
                 CompositionLocalProvider(LocalMinimumTouchTargetEnforcement provides false){
                     IconButton(modifier = Modifier.size(24.dp),
                         onClick = {

@@ -4,6 +4,8 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 data class Colors(
+    val Blue900 : Color = Color(0xFF0F0F2B),
+    val Blue800 : Color = Color(0xFF1F1F42),
     val Blue600 : Color = Color(0xFF2F90FF),
     val Blue500 : Color = Color(0xFF00BCFF),
     val Blue400 : Color = Color(0xFF5AB9F3),
